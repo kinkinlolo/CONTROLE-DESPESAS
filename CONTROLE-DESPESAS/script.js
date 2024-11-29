@@ -1,127 +1,148 @@
-const transactionUl = document.querySelector('#transactions')
+const transactionUl = document.querySelector("#transactions");
 const incomeDisplay = document.querySelector('#money-plus')
-const expenseDisplay = document.querySelector('#money-minus')
+const despDisplay = document.querySelector('#money-minus')
 const balanceDisplay = document.querySelector('#balance')
-const form = document.querySelector('#form')
-const inputTransactionName = document.querySelector('#text')
-const inputTransactionAmount = document.querySelector('#amount')
-//console.log({inputTransactionName, inputTransactionAmount});
+// console.log({incomeDisplay, expenseDisplay, balanceDisplay});
 
+const dummyTransactions = [
+{ id: 1, name: "Bolo de brigadeiro", amount: -20 },
+{ id: 2, name: "Salário", amount: 300 },
+{ id: 3, name: "Torta de limão", amount: -10 },
+{ id: 4, name: "Bateria", amount: 150 },
+];
 
-// let transactions = [
-//     { id: 1, name: "Bolo de brigadeiro", amount: -20 },
-//     { id: 2, name: "Salário", amount: 300 },
-//     { id: 3, name: "Torta de frango", amount: -10 },
-//     { id: 4, name: "Violão", amount: 150 },
-// ];
-const localStorageTransactions = JSON.parse(localStorage
-    .getItem('transactions'))
+const addTransactionIntoDOM = (transaction) => {
+const operator = transaction.amount < 0 ? "-" : "+";
+const CSSClass = transaction.amount < 0 ? "minus" : "plus";
+const amountWithoutOperator = Math.abs(transaction.amount);
+const li = document.createElement("li");
 
-let transactions = localStorage
-    .getItem('transactions') !== null ? localStorageTransactions : []
+li.classList.add(CSSClass);
+li.innerHTML = `
+${transaction.name} ${operator} R$ ${amountWithoutOperator}x `;
+transactionUl.append(li);
+// transactionUl.prepend(li);
 
-const removeTransaction = ID => {
-    transactions = transactions.filter(transaction => transaction.id !== ID)
-    // console.log(transactions);
-    upDateBalanceValues()
-    init()
+// console.log(li);
+//console.log(operator);
 
-}
-
-function addTransactionIntoDOM(transaction) {
-    const operator = transaction.amount < 0 ? "-" : "+"
-    const CSSClass = transaction.amount < 0 ? "minus" : "plus"
-    const amountWithoutOperator = Math.abs(transaction.amount)
-    const li = document.createElement("li")
-
-    li.classList.add(CSSClass)
-    li.innerHTML = `
-        ${transaction.name}
-        <span> ${operator} R$ ${amountWithoutOperator}</span>
-        <button class="delete-btn" onclick = "removeTransaction(${transaction.id})">
-            x
-        </button>
-  `
-    transactionUl.append(li)
-    //transactionUl.prepend(li);
-    // console.log(li);
-    //console.log(operator);
-    {
-        // <li class="minus">
-        //     Salário <span>-$400</span><button class="delete-btn">x</button>
-        // </li>
-    }
-}
-
-// addTransactionIntoDOM(transactions[0]);
-// addTransactionIntoDOM(transactions[1]);
-
-const getExpenses = transactionsAmounts => Math.abs(transactionsAmounts
-    .filter(value => value < 0)
-    .reduce((accumulator, value) => accumulator + value, 0))
-    .toFixed(2);
-
-const upDateBalanceValues = () => {
-    const transactionsAmounts = transactions.map(transaction => transaction.amount
-    );
-    // console.log(transactionsAmounts)
-    const total = transactionsAmounts.reduce((accumulator, transaction) => accumulator + transaction, 0).toFixed(2)
-    const income = transactionsAmounts
-        .filter((value) => value > 0)
-        .reduce((accumulator, value) => accumulator + value, 0)
-        .toFixed(2);
-    const expense = getExpenses(transactionsAmounts) 
-    //console.log(expense)
-    balanceDisplay.textContent = `R$ ${total}`
-    incomeDisplay.textContent = `R$ ${income}`
-    expenseDisplay.textContent = `R$ ${expense}`
+{
+// // Salário -$400x // }
 };
+
+// addTransactionIntoDOM(dummyTransactions[0]);
+// addTransactionIntoDOM(dummyTransactions[1]);
+
+const updateBalanceValues = () => {
+const transactionsAmounts = dummyTransactions.map(
+(transaction) => transaction.amount
+);
+const total = transactionsAmounts.reduce((acumulator, transaction) => acumulator + transaction, 0).toFixed(2);
+const income = transactionsAmounts
+.filter((value) => value > 0)
+.reduce((accumulator, value) => accumulator + value, 0)
+.toFixed(2);
+// console.log(income)
+
+
+const desp = transactionsAmounts
+.filter((value) => value < 0 )
+.reduce((accumulator, value)=> accumulator + value,0)
+.toFixed(2);
+console.log(desp)
+
+balanceDisplay.textContent = R$ ${total}
+incomeDisplay.textContent = R$ ${income}
+despDisplay.textContent = R$ ${desp}
+};
+
 
 const init = () => {
-    transactionUl.innerHTML = ''
-    transactions.forEach(addTransactionIntoDOM);
-    upDateBalanceValues();
+dummyTransactions.forEach(addTransactionIntoDOM);
+updateBalanceValues();
 };
 
-init()
+init();
 
-const upDateLocalStorage = () => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-}
+// const numbers = [1, 2, 3];
+// const sum = numbers.reduce((accumulator, number) => accumulator + number, 0);
+// sum
+
+// const randomNumbers = [36, 97, 37, 63]
+// const numbersGreaterThan = randomNumbers.filter(item => item > 37)
+// numbersGreaterThanconst transactionUl = document.querySelector("#transactions");
+const incomeDisplay = document.querySelector('#money-plus')
+const despDisplay = document.querySelector('#money-minus')
+const balanceDisplay = document.querySelector('#balance')
+// console.log({incomeDisplay, expenseDisplay, balanceDisplay});
+
+const dummyTransactions = [
+{ id: 1, name: "Bolo de brigadeiro", amount: -20 },
+{ id: 2, name: "Salário", amount: 300 },
+{ id: 3, name: "Torta de limão", amount: -10 },
+{ id: 4, name: "Bateria", amount: 150 },
+];
+
+const addTransactionIntoDOM = (transaction) => {
+const operator = transaction.amount < 0 ? "-" : "+";
+const CSSClass = transaction.amount < 0 ? "minus" : "plus";
+const amountWithoutOperator = Math.abs(transaction.amount);
+const li = document.createElement("li");
+
+li.classList.add(CSSClass);
+li.innerHTML = `
+${transaction.name} ${operator} R$ ${amountWithoutOperator}x `;
+transactionUl.append(li);
+// transactionUl.prepend(li);
+
+// console.log(li);
+//console.log(operator);
+
+{
+// // Salário -$400x // }
+};
+
+// addTransactionIntoDOM(dummyTransactions[0]);
+// addTransactionIntoDOM(dummyTransactions[1]);
+
+const updateBalanceValues = () => {
+const transactionsAmounts = dummyTransactions.map(
+(transaction) => transaction.amount
+);
+const total = transactionsAmounts.reduce((acumulator, transaction) => acumulator + transaction, 0).toFixed(2);
+const income = transactionsAmounts
+.filter((value) => value > 0)
+.reduce((accumulator, value) => accumulator + value, 0)
+.toFixed(2);
+// console.log(income)
 
 
+const desp = transactionsAmounts
+.filter((value) => value < 0 )
+.reduce((accumulator, value)=> accumulator + value,0)
+.toFixed(2);
+console.log(desp)
 
-const generateID = () => Math.round(Math.random() * 1000)
+balanceDisplay.textContent = R$ ${total}
+incomeDisplay.textContent = R$ ${income}
+despDisplay.textContent = R$ ${desp}
+};
 
-const addToTransactionsArray = (transName, transAmount) => {
-    transactions.push(transaction = {
-        id: generateID(),
-        name: transName,
-        amount: Number(transAmount)
-    })
-}
 
-const cleanInputs = () => {
-    inputTransactionAmount.value = ''
-    inputTransactionName.value = ''
-}
-const handleFormSubmit = event => {
-    event.preventDefault()
-    const transName = inputTransactionName.value.trim()
-    const transAmount = inputTransactionAmount.value.trim()
-    const isSomeInputEmpaty = transName === '' || transAmount === ''
+const init = () => {
+dummyTransactions.forEach(addTransactionIntoDOM);
+updateBalanceValues();
+};
 
-    if (isSomeInputEmpaty) {
-        alert('Por gentileza preencha tanto o nome quanto o valor da transação!!!')
-        return
-    }
-    addToTransactionsArray(transName, transAmount)
+init();
 
-    init()
+// const numbers = [1, 2, 3];
+// const sum = numbers.reduce((accumulator, number) => accumulator + number, 0);
+// sum
 
-    upDateLocalStorage()
-
-    cleanInputs();
+// const randomNumbers = [36, 97, 37, 63]
+// const numbersGreaterThan = randomNumbers.filter(item => item > 37)
+// numbersGreaterThan
 
 }
 
