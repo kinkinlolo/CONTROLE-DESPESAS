@@ -2,13 +2,17 @@ const transactionUl = document.querySelector("#transactions");
 const incomeDisplay = document.querySelector('#money-plus')
 const despDisplay = document.querySelector('#money-minus')
 const balanceDisplay = document.querySelector('#balance')
+const form = document.querySelector('#form')
+const inputTransactionName = document.querySelector('#text')
+const inputTransactionAmount = document.querySelector('#amount')
+console.log(form)
 // console.log({incomeDisplay, expenseDisplay, balanceDisplay});
 
 const dummyTransactions = [
-{ id: 1, name: "Bolo de brigadeiro", amount: -20 },
+{ id: 1, name: "Bolo de brigadeiro", amount: - 20 },
 { id: 2, name: "Salário", amount: 300 },
 { id: 3, name: "Torta de limão", amount: -10 },
-{ id: 4, name: "Bateria", amount: 150 },
+{ id: 4, name: "Bateria", amount: - 150 },
 ];
 
 const addTransactionIntoDOM = (transaction) => {
@@ -45,11 +49,10 @@ const income = transactionsAmounts
 // console.log(income)
 
 
-const desp = transactionsAmounts
+const desp = Math.abs (transactionsAmounts
 .filter((value) => value < 0 )
-.reduce((accumulator, value)=> accumulator + value,0)
+.reduce((accumulator, value)=> accumulator + value,0))
 .toFixed(2);
-console.log(desp)
 
 balanceDisplay.textContent = R$ ${total}
 incomeDisplay.textContent = R$ ${income}
@@ -63,6 +66,26 @@ updateBalanceValues();
 };
 
 init();
+
+const generateID = ()=> Math.round(Math.random()*1000)
+
+form.addEventListener('submit', event => {
+event.preventDefault()
+const transName = inputTransactionName.value.trim()
+const transAmount = inputTransactionAmount.value.trim()
+if(transName==='' || transAmount === ''){
+alert('Por gentileza preencha tanto o nome quanto o valor da transação!!!')
+return
+}
+const transaction = {
+id: generateID(),
+name: transName,
+amount: transAmount }
+//console.log(transaction);
+
+dummyTransactions.push(transaction)
+})
+
 
 // const numbers = [1, 2, 3];
 // const sum = numbers.reduce((accumulator, number) => accumulator + number, 0);
@@ -74,13 +97,17 @@ init();
 const incomeDisplay = document.querySelector('#money-plus')
 const despDisplay = document.querySelector('#money-minus')
 const balanceDisplay = document.querySelector('#balance')
+const form = document.querySelector('#form')
+const inputTransactionName = document.querySelector('#text')
+const inputTransactionAmount = document.querySelector('#amount')
+console.log(form)
 // console.log({incomeDisplay, expenseDisplay, balanceDisplay});
 
 const dummyTransactions = [
-{ id: 1, name: "Bolo de brigadeiro", amount: -20 },
+{ id: 1, name: "Bolo de brigadeiro", amount: - 20 },
 { id: 2, name: "Salário", amount: 300 },
 { id: 3, name: "Torta de limão", amount: -10 },
-{ id: 4, name: "Bateria", amount: 150 },
+{ id: 4, name: "Bateria", amount: - 150 },
 ];
 
 const addTransactionIntoDOM = (transaction) => {
@@ -117,11 +144,10 @@ const income = transactionsAmounts
 // console.log(income)
 
 
-const desp = transactionsAmounts
+const desp = Math.abs (transactionsAmounts
 .filter((value) => value < 0 )
-.reduce((accumulator, value)=> accumulator + value,0)
+.reduce((accumulator, value)=> accumulator + value,0))
 .toFixed(2);
-console.log(desp)
 
 balanceDisplay.textContent = R$ ${total}
 incomeDisplay.textContent = R$ ${income}
@@ -136,6 +162,26 @@ updateBalanceValues();
 
 init();
 
+const generateID = ()=> Math.round(Math.random()*1000)
+
+form.addEventListener('submit', event => {
+event.preventDefault()
+const transName = inputTransactionName.value.trim()
+const transAmount = inputTransactionAmount.value.trim()
+if(transName==='' || transAmount === ''){
+alert('Por gentileza preencha tanto o nome quanto o valor da transação!!!')
+return
+}
+const transaction = {
+id: generateID(),
+name: transName,
+amount: transAmount }
+//console.log(transaction);
+
+dummyTransactions.push(transaction)
+})
+
+
 // const numbers = [1, 2, 3];
 // const sum = numbers.reduce((accumulator, number) => accumulator + number, 0);
 // sum
@@ -143,7 +189,3 @@ init();
 // const randomNumbers = [36, 97, 37, 63]
 // const numbersGreaterThan = randomNumbers.filter(item => item > 37)
 // numbersGreaterThan
-
-}
-
-form.addEventListener('submit', handleFormSubmit)
